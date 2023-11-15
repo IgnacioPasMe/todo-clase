@@ -8,8 +8,12 @@ const servidor = express();
 servidor.use("/pruebas-api",express.static("/pruebas_api"));
 
 
-servidor.get("/tareas", async (peticion,respuesta) => {
-    throw "el error que suceda...";
+servidor.get("/tareas", async (peticion,respuesta,siguiente) => {
+    let [error,tareas] = await leerTareas();
+    if(error){
+        return siguiente(error);
+    }
+    respuesta.json(tareas);
 });
 
 servidor.use((error,peticion,respuesta,siguiente) => {

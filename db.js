@@ -16,11 +16,8 @@ function leerTareas(){
         let conexion = conectar();
 
         try{
-            let tareas = await conexion`SELECT * FROM tareas`;
+            let tareas = await conexion`SELECT * FROM mareas`;
             
-
-            conexion.end();
-
             callback([null,tareas]);
 
         }catch(error){
