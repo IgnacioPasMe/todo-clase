@@ -35,13 +35,46 @@ servidor.post("/nueva", async (peticion,respuesta,siguiente) => {
     respuesta.send("...peticion POST");
 });
 
-servidor.delete("/eliminar/:id([0-9]{1,9})", async (peticion,respuesta) => {
+servidor.delete("/eliminar/:id([0-9]{1,9})", async (peticion,respuesta,siguiente) => {
     let id = Number(peticion.params.id);
     let [error,count] = await borrarTarea(id);
     if(error){
         return siguiente(2);
     }
     respuesta.json({resultado : await count > 0 ? "ok" : "ko" });
+});
+
+servidor.put("/actualizar/:accion(1|2)/:id([0-9]{1,9})", async (peticion,respuesta,siguiente) => {
+    let accion = Number(peticion.params.accion);
+    let id = Number(peticion.params.id);
+
+    console.log(error,count);
+
+
+    switch(accion){
+        case 1:
+            let {tarea} = peticion.body;
+
+            if(!tarea || tarea.trim() == ""){
+                return siguiente(1);
+            }
+            //usamos VAR para evitar conflicto de variables LET, faiclitar la legibilidad, si se crean estas variables, las otras dos no se crearan (las del caso 2), ambas variables serán desechadas al terminar la función, no estoy modificando el scope GLOBAL
+            var [error,count] = await editarTextoTarea(id);
+
+            if(error){
+                return siguiente(2);
+            }
+            return respuesta.json({resultado : await count > 0 ? "ok" : "ko" });
+            
+        case 2:
+            //usamos VAR para evitar conflicto de variables LET, faiclitar la legibilidad, si se crean estas variables, las otras dos no se crearan (las del caso 1), ambas variables serán desechadas al terminar la función, no estoy modificando el scope GLOBAL
+            var [error,count] = await editarEstadoTarea(id);
+
+            if(error){
+                return siguiente(2);
+            }
+            return respuesta.json({resultado : await count > 0 ? "ok" : "ko" });
+    }
 });
 
 servidor.use((error,peticion,respuesta,siguiente) => {
