@@ -1,0 +1,101 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: sans-serif;
+}
+input,button{
+    -webkit-appearance:none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    display: block;
+    font-family: sans-serif;
+}
+form{
+    padding: 20px;
+    border-bottom: 1px dashed #999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+form input[type="text"]{
+    padding: 10px;
+    border-bottom: 1px dashed #999;
+    width: 600px;
+    font-size: 2em;
+}
+form input[type="submit"]{
+    font-size: 1.2 em;
+    color: #333;
+    border: 1px solid #333;
+    border-radius: 5px;
+    width:100px;
+    padding: 10px;
+    margin-top: 20px;
+}
+.tareas{
+    width:500px;
+    margin:20px auto 0;
+}
+.tarea{
+    padding: 20px;
+    border: 2px solid #999;
+    border-radius:20px;
+    margin-bottom:20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.tarea h2,.tarea input{
+    font-weight: normal;
+    color:#333;
+    font-size: 1.8em;
+    width: 100%;
+    text-align: left;
+    display: none;
+}
+.tarea input{
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #999;
+}
+.tarea .visible{
+    display: block;
+}
+.tarea .boton{
+    border: 1px solid #333;
+    color: #333;
+    width: 80px;
+    border-radius: 10px;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+.tarea .estado{
+    width: 50px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #333;
+    margin-top: 20px;
+    position: relative;
+}
+.tarea .estado span{
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #c00;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: left 1s, background-color 1.2s;
+}
+.tarea .terminada span{
+    left: 30px;
+    background-color: #0c0;
+}
+.tarea button:not(:last-child){
+    margin-right: 20px;
+}

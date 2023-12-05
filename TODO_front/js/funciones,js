@@ -1,0 +1,33 @@
+const contenedorTareas = document.querySelector(".tareas");
+const formulario = document.querySelector("form");
+const inputTexto = document.querySelector(`form input[type="text"]`);
+
+//leer tareas
+ajax("/tareas").then(tareas => {
+    tareas.forEach(({id,tarea,terminada}) => {
+        new Tarea(id,tarea,terminada,contenedorTareas);
+    });
+});
+
+
+
+//crear tareas
+formulario.addEventListener("submit", evento => {
+    evento.preventDefault();
+    if (inputTexto.value.trim() != ""){
+        return ajax("/nueva","POST", { tarea : inputTexto.value.trim() });
+            .then(respuesta => {
+                let {id} = respuesta;
+                if(id){
+                    new Tarea(id,inputTexto.value.trim(),false,contenedorTareas);
+                    return inputTexto.value = "";
+                }
+                console.log("..error al usuario al momento de crear la tarea");
+    });
+        
+    }
+});
+
+
+
+

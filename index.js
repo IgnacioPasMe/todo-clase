@@ -9,6 +9,8 @@ const servidor = express();
 
 servidor.use(json());
 
+servidor.use("/",express.static("./TODO_front"));
+
 servidor.use("/pruebas-api",express.static("./pruebas_api"));
 
 
